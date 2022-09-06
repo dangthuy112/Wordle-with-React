@@ -72,6 +72,7 @@ const useWordle = (solution) => {
             }
 
             const formatted = formatGuess()
+            addNewGuess(formatted)
 
             return
         }
