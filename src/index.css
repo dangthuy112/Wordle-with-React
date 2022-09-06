@@ -3,7 +3,8 @@ body {
   font-size: 1em;
   font-family: verdana;
   margin: 0;
-  background-color: rgba(59, 53, 53, 0.719);
+  background-color: rgba(0, 0, 0, 0.808);
+  color: white;
 }
 
 h1 {
@@ -11,7 +12,7 @@ h1 {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   margin: 0 0 30px 0;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 /* rows */
@@ -25,26 +26,96 @@ h1 {
   display: block;
   width: 60px;
   height: 60px;
-  border: 1px solid #bbb;
+  background-color: rgba(0, 0, 0, 0.192);
+  border: 2px solid rgba(83, 83, 83, 0.986);
   margin: 4px;
   text-align: center;
   line-height: 60px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 2.5em;
+  color: rgb(255, 255, 255);
 }
 
 .row>div.green {
-  background: #5ac85a;
-  border-color: #5ac85a;
+  --background: #5ac85a;
+  --border-color: #5ac85a;
+  animation: flip 0.9s ease forwards;
 }
 
 .row>div.gray {
-  background: #a1a1a1;
-  border-color: #a1a1a1;
+  --background: #a1a1a1c2;
+  --border-color: #a1a1a1c2;
+  animation: flip 0.9s ease forwards;
 }
 
 .row>div.yellow {
-  background: #e2cc68;
-  border-color: #e2cc68;
+  --background: #e2cc68;
+  --border-color: #e2cc68;
+  animation: flip 0.9s ease forwards;
+}
+
+.row>div:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.row>div:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.row>div:nth-child(4) {
+  animation-delay: 0.75s;
+}
+
+.row>div:nth-child(5) {
+  animation-delay: 1s;
+}
+
+.row.current>div.filled {
+  animation: bounce 0.1s ease-in-out forwards;
+}
+
+/* animations */
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+    background-color: rgba(0, 0, 0, 0.192);
+    border: 2px solid rgba(83, 83, 83, 0.986);
+  }
+
+  45% {
+    transform: rotateX(90deg);
+    background-color: rgba(0, 0, 0, 0.192);
+    border: 2px solid rgba(83, 83, 83, 0.986);
+  }
+
+  55% {
+    transform: rotateX(90deg);
+    background: var(--background);
+    border-color: var(--border-color);
+    color: white;
+  }
+
+  100% {
+    transform: rotateX(0);
+    background: var(--background);
+    border-color: var(--border-color);
+    color: white;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+    border-color: rgba(83, 83, 83, 0.986);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+    border-color: white;
+  }
 }
