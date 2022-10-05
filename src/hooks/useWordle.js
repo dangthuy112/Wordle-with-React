@@ -65,7 +65,6 @@ const useWordle = (solution) => {
                 }
             })
 
-
             return newUsedKeys
         })
 
@@ -93,8 +92,7 @@ const useWordle = (solution) => {
                 return
             }
 
-            const formatted = formatGuess();
-            addNewGuess(formatted);
+            addNewGuess(formatGuess());
 
             return
         }
