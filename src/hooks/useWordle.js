@@ -6,6 +6,7 @@ const useWordle = (solution) => {
     const [guesses, setGuesses] = useState([...Array(6)]);
     const [history, setHistory] = useState([]);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [usedKeys, setUsedKeys] = useState({});
 
     //format a guess into an array of letter objects
     //e.g. [{key: 'e', color: 'gray'}]
@@ -34,8 +35,8 @@ const useWordle = (solution) => {
         }
 
         setGuesses((prevGuesses) => {
-            let newGuesses = [...prevGuesses]
-            newGuesses[turn] = formattedGuess
+            let newGuesses = [...prevGuesses];
+            newGuesses[turn] = formattedGuess;
             return newGuesses
         })
 
@@ -45,6 +46,27 @@ const useWordle = (solution) => {
 
         setTurn((prevTurn) => {
             return prevTurn + 1
+        })
+
+        //add used keys
+        setUsedKeys((prevUsedKeys) => {
+            let newUsedKeys = { ...prevUsedKeys };
+
+            formattedGuess.forEach((letter) => {
+                const currentColor = newUsedKeys[letter.key];
+
+                if (letter.color === 'green') {
+                    newUsedKeys[letter.key] = 'green'
+                } else if (letter.color === 'yellow' && currentColor !== 'green') {
+                    newUsedKeys[letter.key] = 'yellow'
+                } else if (letter.color === 'gray' && currentColor !== 'green'
+                    && currentColor !== 'yellow') {
+                    newUsedKeys[letter.key] = 'gray'
+                }
+            })
+
+
+            return newUsedKeys
         })
 
         setCurrentGuess('')
@@ -71,14 +93,14 @@ const useWordle = (solution) => {
                 return
             }
 
-            const formatted = formatGuess()
-            addNewGuess(formatted)
+            const formatted = formatGuess();
+            addNewGuess(formatted);
 
             return
         }
 
         if (key === 'Backspace') {
-            setCurrentGuess((prev) => prev.slice(0, -1))
+            setCurrentGuess((prev) => prev.slice(0, -1));
             return
         }
 
@@ -89,7 +111,7 @@ const useWordle = (solution) => {
         }
     }
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup }
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
 }
 
 export default useWordle
