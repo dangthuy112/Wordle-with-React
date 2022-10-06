@@ -6,19 +6,21 @@ import Grid from './Grid';
 import Keypad from './Keypad';
 import Modal from './Modal';
 
-export default function Wordle({ solution }) {
-    const { currentGuess, handleKeyup, guesses, isCorrect, turn, usedKeys } = useWordle(solution);
+export default function Wordle({ solution, words }) {
+    const { currentGuess, handleKeyup, guesses, isCorrect,
+        turn, usedKeys, isWrongGuess } = useWordle(solution, words);
     const [showModal, setShowModal] = useState(false);
+
     useEffect(() => {
         window.addEventListener('keyup', handleKeyup);
 
         if (isCorrect) {
-            setTimeout(() => setShowModal(true), 1000);
+            setTimeout(() => setShowModal(true), 2400);
             window.removeEventListener('keyup', handleKeyup)
         }
 
         if (turn > 5) {
-            setTimeout(() => setShowModal(true), 1000);
+            setTimeout(() => setShowModal(true), 2400);
             window.removeEventListener('keyup', handleKeyup)
         }
 
@@ -30,7 +32,7 @@ export default function Wordle({ solution }) {
             {/* debug delete later*/}
             <div>{solution}</div>
 
-            <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
+            <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} isWrongGuess={isWrongGuess} />
             <Keypad usedKeys={usedKeys} />
             {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution} />}
         </div>

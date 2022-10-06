@@ -1,12 +1,13 @@
 import { useState } from "react"
 
-const useWordle = (solution) => {
+const useWordle = (solution, words) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
     const [history, setHistory] = useState([]);
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
+    const [isWrongGuess, setIsWrongGuess] = useState(false);
 
     //format a guess into an array of letter objects
     //e.g. [{key: 'e', color: 'gray'}]
@@ -75,20 +76,33 @@ const useWordle = (solution) => {
     //if user presses enter, add the new guess
     const handleKeyup = ({ key }) => {
         if (key === 'Enter') {
-            //only if guess if turn is less than 5
-            if (turn > 5) {
-                console.log('you used all your guesses')
-                return
-            }
             //do not allow duplicate guesses
             if (history.includes(currentGuess)) {
+                //debug delete later
                 console.log('you already tried that word');
+
+                setIsWrongGuess(true);
+                setTimeout(() => setIsWrongGuess(false), 500);
                 return
             }
 
             //check word is 5 chars long
             if (currentGuess.length !== 5) {
+                //debug delete later
                 console.log('word must be 5 chars long');
+
+                setIsWrongGuess(true);
+                setTimeout(() => setIsWrongGuess(false), 500);
+                return
+            }
+
+            //check to see if word exist in word bank
+            if (!words.find((word) => word.word === currentGuess)) {
+                //debug delete later
+                console.log('word does not exist in word bank');
+
+                setIsWrongGuess(true);
+                setTimeout(() => setIsWrongGuess(false), 500);
                 return
             }
 
@@ -109,7 +123,7 @@ const useWordle = (solution) => {
         }
     }
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys }
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess }
 }
 
 export default useWordle

@@ -1,9 +1,12 @@
 import React from 'react'
+import { useEffect } from 'react';
 
-export default function Row({ guess, currentGuess }) {
+export default function Row({ guess, currentGuess, isWrongGuess }) {
+    let className = !isWrongGuess ? 'row current' : 'row current wrong';
+
     if (guess) {
         return (
-            <div className="row past">
+            <div className="row">
                 {guess.map((letter, index) => (
                     <div key={index} className={letter.color}> {letter.key}</div>
                 ))}
@@ -15,7 +18,7 @@ export default function Row({ guess, currentGuess }) {
         let letters = currentGuess.split('')
 
         return (
-            <div className="row current">
+            <div className={className}>
                 {letters.map((letter, index) => (
                     <div key={index} className="filled">{letter}</div>
                 ))}
