@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const useWordle = (solution, words) => {
+const useWordle = (solution, setSolution, words, setShowModal) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -123,7 +123,26 @@ const useWordle = (solution, words) => {
         }
     }
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess }
+    //handle restart of game
+    const handleRestart = () => {
+        setShowModal(false);
+        setIsCorrect(false);
+        setCurrentGuess('');
+        setGuesses([...Array(6)]);
+        setHistory([]);
+        setIsWrongGuess(false);
+        setTurn(0);
+        setUsedKeys({});
+
+        //get new solution
+        let newSolution = words[Math.floor(Math.random() * words.length)].word;
+        while (solution === newSolution) {
+            newSolution = words[Math.floor(Math.random() * words.length)].word;
+        }
+        setSolution(newSolution);
+    }
+
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess, handleRestart }
 }
 
 export default useWordle

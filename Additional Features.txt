@@ -2,6 +2,7 @@ TODO
 -Start new game button
 -Display definition of the solution after game finishes using WordAPI
 -Personalized account for keeping track of stats
+-Convert project to use Redux central storage
 
 DONE
 -Python Script to generate json file based on listofwords.txt
