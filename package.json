@@ -1,8 +1,8 @@
 {
   "name": "react-wordle",
   "version": "0.1.0",
-  "homepage": "https://dangthuy112.github.io/Wordle_with_React",
-  "private": true,
+  "homepage": "https://dangthuy112.github.io/Wordle-with-React/",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",

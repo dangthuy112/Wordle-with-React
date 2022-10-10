@@ -1,5 +1,4 @@
-import React from 'react'
-import { useEffect } from 'react';
+import React from 'react';
 
 export default function Row({ guess, currentGuess, isWrongGuess }) {
     let className = !isWrongGuess ? 'row current' : 'row current wrong';
