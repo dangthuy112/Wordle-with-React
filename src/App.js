@@ -26,7 +26,6 @@ function App() {
         };
 
         axios.request(options).then(function (response) {
-          // console.log(response.data.definitions);
           setDefinition(response.data.definitions);
         }).catch(function (error) {
           console.error(error);

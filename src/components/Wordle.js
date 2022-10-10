@@ -30,9 +30,6 @@ export default function Wordle({ solution, setSolution, definition, setDefinitio
 
     return (
         <div>
-            {/* debug delete later*/}
-            <div>{solution}</div>
-
             <Grid currentGuess={currentGuess} guesses={guesses}
                 turn={turn} isWrongGuess={isWrongGuess} />
             <Keypad usedKeys={usedKeys} />

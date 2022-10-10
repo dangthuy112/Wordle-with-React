@@ -22,7 +22,6 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
         };
 
         axios.request(options).then(function (response) {
-            // console.log(response.data.definitions);
             setDefinition(response.data.definitions);
         }).catch(function (error) {
             console.error(error);
@@ -98,9 +97,6 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
         if (key === 'Enter') {
             //do not allow duplicate guesses
             if (history.includes(currentGuess)) {
-                //debug delete later
-                console.log('you already tried that word');
-
                 setIsWrongGuess(true);
                 setTimeout(() => setIsWrongGuess(false), 500);
                 return
@@ -108,9 +104,6 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
 
             //check word is 5 chars long
             if (currentGuess.length !== 5) {
-                //debug delete later
-                console.log('word must be 5 chars long');
-
                 setIsWrongGuess(true);
                 setTimeout(() => setIsWrongGuess(false), 500);
                 return
@@ -118,9 +111,6 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
 
             //check to see if word exist in word bank
             if (!words.find((word) => word.word === currentGuess)) {
-                //debug delete later
-                console.log('word does not exist in word bank');
-
                 setIsWrongGuess(true);
                 setTimeout(() => setIsWrongGuess(false), 500);
                 return
