@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from "axios";
 
-const useWordle = (solution, setSolution, words, setShowModal) => {
+const useWordle = (solution, setSolution, words, setShowModal, setDefinition) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -8,6 +9,25 @@ const useWordle = (solution, setSolution, words, setShowModal) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
+
+    //grab definition from WordsAPI
+    const getNewDefinition = (newSolution) => {
+        const options = {
+            method: 'GET',
+            url: `https://wordsapiv1.p.rapidapi.com/words/${newSolution}/definitions`,
+            headers: {
+                'X-RapidAPI-Key': '1ef2003126msh860b9a466280f3bp1d15d2jsnc4b51c4616db',
+                'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+            }
+        };
+
+        axios.request(options).then(function (response) {
+            // console.log(response.data.definitions);
+            setDefinition(response.data.definitions);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
 
     //format a guess into an array of letter objects
     //e.g. [{key: 'e', color: 'gray'}]
@@ -140,9 +160,12 @@ const useWordle = (solution, setSolution, words, setShowModal) => {
             newSolution = words[Math.floor(Math.random() * words.length)].word;
         }
         setSolution(newSolution);
+        getNewDefinition(newSolution);
     }
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess, handleRestart }
+    return {
+        turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess, handleRestart
+    }
 }
 
 export default useWordle

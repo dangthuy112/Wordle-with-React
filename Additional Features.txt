@@ -1,10 +1,10 @@
 TODO
--Start new game button
 -Display definition of the solution after game finishes using WordAPI
 -Personalized account for keeping track of stats
 -Convert project to use Redux central storage
 
 DONE
+-Start new game button
 -Python Script to generate json file based on listofwords.txt
 -Check if current guess is a real word
 -Shake boxes if incorrect guess format is given
