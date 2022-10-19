@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Wordle from './components/Wordle'
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setSolution } from "./redux/slices/solutionSlice";
 
 function App() {
-  const [solution, setSolution] = useState(null);
+  // const [solution, setSolution] = useState(null);
   const [definition, setDefinition] = useState({});
   const [words, setWords] = useState([]);
+  const { solution } = useSelector((state) => state.solution);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch('http://localhost:3001/solutions')
@@ -13,7 +17,11 @@ function App() {
       .then(json => {
         setWords([...json]);
         const randomSolution = json[Math.floor(Math.random() * json.length)];
-        setSolution(randomSolution.word);
+        // setSolution(randomSolution.word);
+        dispatch(setSolution(randomSolution.word));
+
+        //debug delete
+        console.log(solution);
 
         //get definition from WordsAPI
         const options = {
@@ -35,9 +43,11 @@ function App() {
 
   return (
     <div className="App">
+
       <h1>Wordle</h1>
-      {solution && <Wordle solution={solution} setSolution={setSolution}
-        definition={definition} setDefinition={setDefinition} words={words} />}
+      <p>{solution}</p>
+      {solution && <Wordle definition={definition}
+        setDefinition={setDefinition} words={words} />}
     </div>
   );
 }

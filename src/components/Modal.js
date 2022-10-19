@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
-export default function Modal({ isCorrect, turn, solution, definition, handleRestart }) {
+export default function Modal({ isCorrect, turn, definition, handleRestart }) {
+    const { solution } = useSelector((state) => state.solution);
+
     return (
         <div className="modal">
             {isCorrect && (

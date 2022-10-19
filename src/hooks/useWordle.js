@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setSolution } from "../redux/slices/solutionSlice";
 
-const useWordle = (solution, setSolution, words, setShowModal, setDefinition) => {
+const useWordle = (words, setShowModal, setDefinition) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -9,6 +11,8 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
+    const { solution } = useSelector((state) => state.solution);
+    const dispatch = useDispatch();
 
     //grab definition from WordsAPI
     const getNewDefinition = (newSolution) => {
@@ -149,7 +153,8 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
         while (solution === newSolution) {
             newSolution = words[Math.floor(Math.random() * words.length)].word;
         }
-        setSolution(newSolution);
+        // setSolution(newSolution);
+        dispatch(setSolution(newSolution));
         getNewDefinition(newSolution);
     }
 
