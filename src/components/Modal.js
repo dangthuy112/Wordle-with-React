@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { selectDefinition, selectSolution } from '../redux/slices/solutionSlice';
 
-export default function Modal({ isCorrect, turn, definition, handleRestart }) {
-    const { solution } = useSelector((state) => state.solution);
+export default function Modal({ isCorrect, turn, handleRestart }) {
+    const solution = useSelector(selectSolution);
+    const definition = useSelector(selectDefinition);
 
     return (
         <div className="modal">

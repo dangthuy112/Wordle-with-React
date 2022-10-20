@@ -6,11 +6,11 @@ import Grid from './Grid';
 import Keypad from './Keypad';
 import Modal from './Modal';
 
-export default function Wordle({ definition, setDefinition, words }) {
+export default function Wordle({ words }) {
     const [showModal, setShowModal] = useState(false);
     const { currentGuess, handleKeyup, guesses, isCorrect,
         turn, usedKeys, isWrongGuess, handleRestart }
-        = useWordle(words, setShowModal, setDefinition);
+        = useWordle(words, setShowModal);
 
     useEffect(() => {
         window.addEventListener('keyup', handleKeyup);
@@ -34,7 +34,7 @@ export default function Wordle({ definition, setDefinition, words }) {
                 turn={turn} isWrongGuess={isWrongGuess} />
             <Keypad usedKeys={usedKeys} />
             {showModal && <Modal isCorrect={isCorrect} turn={turn}
-                definition={definition} handleRestart={handleRestart} />}
+                handleRestart={handleRestart} />}
         </div>
     )
 }
