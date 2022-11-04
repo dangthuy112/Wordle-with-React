@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Wordle from './components/Wordle'
 import { useDispatch, useSelector } from "react-redux";
-import { selectSolution, setSolutionAsync } from "./redux/slices/solutionSlice";
+import { selectSolution, setSolutionAsync } from "./features/slices/solutionSlice";
 
 function App() {
   const [words, setWords] = useState([]);
   const solution = useSelector(selectSolution);
   const dispatch = useDispatch();
+
+  console.log(useSelector((state) => state));
 
   useEffect(() => {
     fetch('http://localhost:3001/solutions')

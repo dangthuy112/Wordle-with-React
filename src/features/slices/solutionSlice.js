@@ -10,7 +10,6 @@ export const solutionSlice = createSlice({
     name: 'solution',
     initialState,
     reducers: {
-        //sets the payload as the solution and fetch the definition for the solution
         setSolution: (state, action) => {
             state.solution = action.payload;
         },

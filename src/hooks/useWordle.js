@@ -1,7 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setSolutionAsync } from "../redux/slices/solutionSlice";
+import { setSolutionAsync } from "../features/slices/solutionSlice";
 
 const useWordle = (words, setShowModal) => {
     const [turn, setTurn] = useState(0);
@@ -12,7 +11,6 @@ const useWordle = (words, setShowModal) => {
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
     const { solution } = useSelector((state) => state.solution);
-    // const { guesses } = useSelector((state) => state.guesses);
     const dispatch = useDispatch();
 
     //format a guess into an array of letter objects
@@ -136,8 +134,7 @@ const useWordle = (words, setShowModal) => {
         do {
             newSolution = words[Math.floor(Math.random() * words.length)].word;
         } while (solution === newSolution)
-
-        // setSolution(newSolution);
+        
         dispatch(setSolutionAsync(newSolution));
     }
 

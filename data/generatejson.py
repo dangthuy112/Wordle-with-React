@@ -20,7 +20,7 @@ for char in string.ascii_lowercase:
 output = {"solutions": solutions, "letters": letters}
 
 save_path = 'C:\\Users\\dangt\\Documents\\GitHub\\Wordle-with-React'
-file_name = 'db.json'
+file_name = 'wordsDB.json'
 
 completeName = os.path.join(save_path, file_name)
 db = open(completeName, "w")

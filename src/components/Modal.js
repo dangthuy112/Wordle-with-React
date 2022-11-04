@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectDefinition, selectSolution } from '../redux/slices/solutionSlice';
+import { selectDefinition, selectSolution } from '../features/slices/solutionSlice';
 
 export default function Modal({ isCorrect, turn, handleRestart }) {
     const solution = useSelector(selectSolution);
