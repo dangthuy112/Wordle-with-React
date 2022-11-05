@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import solutionReducer from './slices/solutionSlice';
+import wordsReducer from '../features/wordsSlice';
 
 const store = configureStore({
     reducer: {
-        solution: solutionReducer,
+        words: wordsReducer,
     }
 });
 

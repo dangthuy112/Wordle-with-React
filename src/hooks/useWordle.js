@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSolutionAsync } from "../features/slices/solutionSlice";
+import { setSolutionAsync } from "../features/wordsSliceOriginal";
 
 const useWordle = (words, setShowModal) => {
     const [turn, setTurn] = useState(0);
@@ -102,7 +102,6 @@ const useWordle = (words, setShowModal) => {
             }
 
             addNewGuess(formatGuess());
-
             return
         }
 
