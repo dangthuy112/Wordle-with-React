@@ -8,14 +8,20 @@ function App() {
   const solution = useSelector(selectSolution);
   const dispatch = useDispatch();
 
-  console.log(useSelector((state) => state));
-
   useEffect(() => {
-    fetch('http://localhost:3001/solutions')
+    // fetch('http://localhost:3001/solutions')
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     setWords([...json]);
+    //     const randomSolution = json[Math.floor(Math.random() * json.length)];
+    //     dispatch(setSolutionAsync(randomSolution.word));
+    //   })
+    fetch('https://incongruous-cyber-passionfruit.glitch.me/wordsDB.json')
       .then(res => res.json())
-      .then(json => {
-        setWords([...json]);
-        const randomSolution = json[Math.floor(Math.random() * json.length)];
+      .then(data => {
+        console.log(data);
+        setWords([...data.solutions]);
+        const randomSolution = data.solutions[Math.floor(Math.random() * data.solutions.length)];
         dispatch(setSolutionAsync(randomSolution.word));
       })
   }, []);
