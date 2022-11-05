@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setSolutionAsync } from "../features/slices/solutionSlice";
 
-const useWordle = (solution, setSolution, words, setShowModal, setDefinition) => {
+const useWordle = (words, setShowModal) => {
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -9,24 +10,8 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
-
-    //grab definition from WordsAPI
-    const getNewDefinition = (newSolution) => {
-        const options = {
-            method: 'GET',
-            url: `https://wordsapiv1.p.rapidapi.com/words/${newSolution}/definitions`,
-            headers: {
-                'X-RapidAPI-Key': '1ef2003126msh860b9a466280f3bp1d15d2jsnc4b51c4616db',
-                'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            setDefinition(response.data.definitions);
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
+    const { solution } = useSelector((state) => state.solution);
+    const dispatch = useDispatch();
 
     //format a guess into an array of letter objects
     //e.g. [{key: 'e', color: 'gray'}]
@@ -145,12 +130,12 @@ const useWordle = (solution, setSolution, words, setShowModal, setDefinition) =>
         setUsedKeys({});
 
         //get new solution
-        let newSolution = words[Math.floor(Math.random() * words.length)].word;
-        while (solution === newSolution) {
+        let newSolution;
+        do {
             newSolution = words[Math.floor(Math.random() * words.length)].word;
-        }
-        setSolution(newSolution);
-        getNewDefinition(newSolution);
+        } while (solution === newSolution)
+        
+        dispatch(setSolutionAsync(newSolution));
     }
 
     return {
