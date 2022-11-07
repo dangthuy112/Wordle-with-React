@@ -1,7 +1,7 @@
 import React from 'react'
 import Row from './Row'
 
-export default function Grid({ currentGuess, guesses, turn, isWrongGuess }) {
+export default function WordleGrid({ currentGuess, guesses, turn, isWrongGuess }) {
     return (
         <div>
             {guesses.map((guess, index) => {

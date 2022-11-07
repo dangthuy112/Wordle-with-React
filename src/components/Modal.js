@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectDefinition, selectSolution } from '../features/slices/solutionSlice';
+import { selectDefinition, selectSolution } from '../features/wordsSlice';
 
-export default function Modal({ isCorrect, turn, handleRestart }) {
+export default function Modal({ isCorrect, turn, handleNewGame }) {
     const solution = useSelector(selectSolution);
     const definition = useSelector(selectDefinition);
 
@@ -16,7 +16,7 @@ export default function Modal({ isCorrect, turn, handleRestart }) {
                         (<p className="definition">Definition: {definition[0].definition}</p>)}
                     {turn === 1 ? (<p>You found the solution in {turn} guess!</p>) :
                         (<p>You found the solution in {turn} guesses!</p>)}
-                    < button onClick={handleRestart} className="restart">Start a New Game</button>
+                    < button onClick={handleNewGame} className="restart">Start a New Game</button>
                 </div>
             )}
             {!isCorrect && (
@@ -26,7 +26,7 @@ export default function Modal({ isCorrect, turn, handleRestart }) {
                     {(definition.length !== 0) &&
                         (<p className="definition">Definition: {definition[0].definition}</p>)}
                     <p>Better luck next time!</p>
-                    <button onClick={handleRestart} className="restart">Start a New Game</button>
+                    <button onClick={handleNewGame} className="restart">Start a New Game</button>
                 </div>
             )}
         </div >
