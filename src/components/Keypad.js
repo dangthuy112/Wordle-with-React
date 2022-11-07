@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { lettersArray } from '../data/letters';
 
 export default function Keypad({ usedKeys }) {
     const [letters, setLetters] = useState(null);
 
     useEffect(() => {
-        fetch('https://incongruous-cyber-passionfruit.glitch.me/wordsDB.json')
-            .then(res => res.json())
-            .then(json => {
-                setLetters(json.letters)
-            })
+        setLetters(lettersArray)
     }, [])
 
     return (

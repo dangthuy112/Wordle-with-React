@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSolutionAsync } from "../features/wordsSliceOriginal";
+import { getNewSolution, selectSolution, useGetWordsQuery } from "../features/wordsSlice";
 
-const useWordle = (words, setShowModal) => {
+const useWordle = () => {
+    const [showModal, setShowModal] = useState(false);
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -10,8 +11,23 @@ const useWordle = (words, setShowModal) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
-    const { solution } = useSelector((state) => state.solution);
+    const { data: words } = useGetWordsQuery();
+    const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
+
+    //handle restart of game
+    const handleNewGame = () => {
+        setShowModal(false);
+        setIsCorrect(false);
+        setCurrentGuess('');
+        setGuesses([...Array(6)]);
+        setHistory([]);
+        setIsWrongGuess(false);
+        setTurn(0);
+        setUsedKeys({});
+
+        dispatch(getNewSolution(words));
+    }
 
     //format a guess into an array of letter objects
     //e.g. [{key: 'e', color: 'gray'}]
@@ -117,28 +133,17 @@ const useWordle = (words, setShowModal) => {
         }
     }
 
-    //handle restart of game
-    const handleRestart = () => {
-        setShowModal(false);
-        setIsCorrect(false);
-        setCurrentGuess('');
-        setGuesses([...Array(6)]);
-        setHistory([]);
-        setIsWrongGuess(false);
-        setTurn(0);
-        setUsedKeys({});
-
-        //get new solution
-        let newSolution;
-        do {
-            newSolution = words[Math.floor(Math.random() * words.length)].word;
-        } while (solution === newSolution)
-        
-        dispatch(setSolutionAsync(newSolution));
-    }
-
     return {
-        turn, currentGuess, guesses, isCorrect, handleKeyup, usedKeys, isWrongGuess, handleRestart
+        turn,
+        currentGuess,
+        guesses,
+        isCorrect,
+        handleKeyup,
+        usedKeys,
+        isWrongGuess,
+        handleNewGame,
+        showModal,
+        setShowModal
     }
 }
 
