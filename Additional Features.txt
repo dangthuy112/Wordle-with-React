@@ -1,4 +1,4 @@
-TODO
+*TODO*
 -Personalized account for keeping track of stats
     -modal for login
         -register
@@ -8,14 +8,14 @@ TODO
         -play as guest
     -setup stats display
     -previousGames logic
--Fetching from wordsDB.json instead of json webserver
-    -refactor fetching to RTK query
-    -waiting for data animation
 
-DONE
+*DONE*
 -Personalized account for keeping track of stats
     -setup users db
     -connect frontend to users db
+-Fetching from wordsDB.json instead of json webserver
+    -refactor fetching to RTK query
+    -waiting for data animation
 -Start new game button
 -Python Script to generate json file based on listofwords.txt
 -Check if current guess is a real word

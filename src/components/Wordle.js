@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getNewSolution, useGetWordsQuery } from '../features/wordsSlice';
 import useWordle from '../hooks/useWordle';
-import Grid from './Grid';
+import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
 import Modal from './Modal';
 
@@ -36,7 +36,7 @@ export default function Wordle() {
 
     return (
         <div>
-            <Grid currentGuess={currentGuess} guesses={guesses}
+            <WordleGrid currentGuess={currentGuess} guesses={guesses}
                 turn={turn} isWrongGuess={isWrongGuess} />
             <Keypad usedKeys={usedKeys} />
             {showModal && <Modal isCorrect={isCorrect} turn={turn}
