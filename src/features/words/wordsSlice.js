@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { apiSlice } from './api/apiSlice';
 import axios from 'axios';
 
 const initialState = {
@@ -18,18 +17,6 @@ export const wordsSlice = createSlice({
             state.definition = action.payload;
         },
     },
-})
-
-export const extendedApiSlice = apiSlice.injectEndpoints({
-    endpoints: builder => ({
-        getWords: builder.query({
-            query: () => '/wordsDB.json',
-            transformResponse: responseData => {
-                return [...responseData.solutions]
-            },
-            providesTags: ['Words']
-        })
-    })
 })
 
 export const getNewSolution = (words) => {
@@ -71,7 +58,5 @@ export const { setSolution, setDefinition } = wordsSlice.actions;
 
 export const selectSolution = (state) => state.words.solution;
 export const selectDefinition = (state) => state.words.definition;
-
-export const { useGetWordsQuery } = extendedApiSlice;
 
 export default wordsSlice.reducer;

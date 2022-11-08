@@ -3,7 +3,6 @@ import Welcome from './Welcome';
 import Login from './Login';
 import Register from './Register'
 
-
 export default function AuthModal({ setIsLoggedIn, setIsGuest }) {
     const [currentModal, setCurrentModal] = useState('welcome');
     let displayModal;
@@ -14,11 +13,14 @@ export default function AuthModal({ setIsLoggedIn, setIsGuest }) {
                 setIsLoggedIn={setIsLoggedIn} setIsGuest={setIsGuest} />
             break;
         case 'login':
-            displayModal = <Login setCurrentModal={setCurrentModal} />
+            displayModal = <Login setCurrentModal={setCurrentModal}
+                setIsLoggedIn={setIsLoggedIn} />
             break;
         case 'register':
             displayModal = <Register setCurrentModal={setCurrentModal} />
             break;
+        default:
+            displayModal = <p>Error</p>
     }
 
     return (

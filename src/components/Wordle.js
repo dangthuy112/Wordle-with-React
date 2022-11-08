@@ -1,7 +1,8 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getNewSolution, useGetWordsQuery } from '../features/wordsSlice';
+import { getNewSolution } from '../features/words/wordsSlice';
+import { useGetWordsQuery } from '../features/words/wordsApiSlice';
 import useWordle from '../hooks/useWordle';
 import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';

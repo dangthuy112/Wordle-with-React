@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectDefinition, selectSolution } from '../features/wordsSlice';
+import { selectDefinition, selectSolution } from '../features/words/wordsSlice';
 
 export default function GameOver({ isCorrect, turn, handleNewGame }) {
     const solution = useSelector(selectSolution);

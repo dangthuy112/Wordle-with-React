@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNewSolution, selectSolution, useGetWordsQuery } from "../features/wordsSlice";
+import { useGetWordsQuery } from "../features/words/wordsApiSlice";
+import { getNewSolution, selectSolution } from "../features/words/wordsSlice";
 
 const useWordle = () => {
     const [showGameOver, setShowGameOver] = useState(false);

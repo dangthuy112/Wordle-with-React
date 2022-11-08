@@ -27,21 +27,20 @@ export default function Welcome({ setCurrentModal, setIsLoggedIn, setIsGuest }) 
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Grid>
-                    <Paper style={paperStyle}>
-                        <Grid container direction="column" justifyContent="space-evenly"
-                            alignItems="stretch">
-                            <Typography variant='h4' sx={{ color: 'white' }}>Welcome to Wordle!</Typography>
-                            <Divider />
-                            <Button variant='contained' fullWidth sx={{ mt: '10px' }}
-                                onClick={handleLoginButton}>Sign In</Button>
-                            <Button variant='contained' fullWidth
-                                onClick={handleRegisterButton}>Register</Button>
-                            <Button variant='contained' fullWidth
-                                onClick={handleGuestButton}>Continue as Guest</Button>
-                        </Grid>
-                    </Paper>
-                </Grid>
+                <Paper style={paperStyle}>
+                    <Grid container direction="column" justifyContent="space-evenly"
+                        alignItems="stretch">
+                        <Typography variant='h4' sx={{ color: 'white' }}>Welcome to Wordle!</Typography>
+                        <Divider />
+                        <Button variant='contained' fullWidth sx={{ mt: '10px' }}
+                            onClick={handleLoginButton}>Sign In</Button>
+                        <Button variant='contained' fullWidth
+                            onClick={handleRegisterButton}>Register</Button>
+                        <Button variant='contained' fullWidth
+                            onClick={handleGuestButton}>Continue as Guest</Button>
+                    </Grid>
+                </Paper>
+
             </Modal >
         </div >
     )
