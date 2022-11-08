@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getNewSolution, selectSolution, useGetWordsQuery } from "../features/wordsSlice";
 
 const useWordle = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showGameOver, setShowGameOver] = useState(false);
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -17,7 +17,7 @@ const useWordle = () => {
 
     //handle restart of game
     const handleNewGame = () => {
-        setShowModal(false);
+        setShowGameOver(false);
         setIsCorrect(false);
         setCurrentGuess('');
         setGuesses([...Array(6)]);
@@ -142,8 +142,8 @@ const useWordle = () => {
         usedKeys,
         isWrongGuess,
         handleNewGame,
-        showModal,
-        setShowModal
+        showGameOver,
+        setShowGameOver
     }
 }
 

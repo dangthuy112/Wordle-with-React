@@ -2,13 +2,13 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectDefinition, selectSolution } from '../features/wordsSlice';
 
-export default function Modal({ isCorrect, turn, handleNewGame }) {
+export default function GameOver({ isCorrect, turn, handleNewGame }) {
     const solution = useSelector(selectSolution);
     const definition = useSelector(selectDefinition);
 
     return (
         <div className="modal">
-            {isCorrect && (
+            {isCorrect ? (
                 <div>
                     <h1>You Win!</h1>
                     <p className="solution">{solution}</p>
@@ -17,10 +17,7 @@ export default function Modal({ isCorrect, turn, handleNewGame }) {
                     {turn === 1 ? (<p>You found the solution in {turn} guess!</p>) :
                         (<p>You found the solution in {turn} guesses!</p>)}
                     < button onClick={handleNewGame} className="restart">Start a New Game</button>
-                </div>
-            )}
-            {!isCorrect && (
-                <div>
+                </div>) : (<div>
                     <h1>You Lose!</h1>
                     <p className="solution">{solution}</p>
                     {(definition.length !== 0) &&

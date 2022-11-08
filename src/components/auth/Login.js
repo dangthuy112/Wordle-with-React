@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Button, Modal, Box, Grid, Avatar, Typography, TextField, Paper, IconButton } from '@mui/material'
+import { Button, Modal, Box, Grid, Avatar, Typography, TextField, Paper, IconButton, Link } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 export default function Login() {
     const [open, setOpen] = useState(true);
+    const handleOpen = () => { setOpen(true) };
     const handleClose = () => { };
-    const handleOpen = () => { };
 
     return (
         <div>
@@ -17,12 +17,12 @@ export default function Login() {
                 aria-describedby="modal-modal-description"
             >
                 <Grid>
-                    <Paper style={boxStyle}>
+                    <Paper style={paperStyle}>
                         <Box
                             display='flex'
                             alignItems="left"
                         >
-                            <IconButton>
+                            <IconButton sx={{ color: 'white', backgroundColor: '#1565c0' }}>
                                 <ArrowBackOutlinedIcon />
                             </IconButton>
                         </Box>
@@ -33,12 +33,19 @@ export default function Login() {
                                 margin: '5px 0 20px 0'
                             }}>Sign In</Typography>
                         </Grid>
-                        <TextField label='Username' placeholder='Enter username' fullWidth required />
-                        <TextField label='Password' placeholder='Enter password' fullWidth required type='password' />
+                        <TextField label='Username' placeholder='Enter Username' fullWidth required
+                            sx={{
+                                input: { color: 'white' }, placeholder:
+                                    { color: 'white' }, label: { color: 'white' }
+                            }} />
+                        <TextField label='Password' placeholder='Enter Password' fullWidth required type='password'
+                            sx={{
+                                mt: '5px', input: { color: 'white' }, placeholder:
+                                    { color: 'white' }, label: { color: 'white' }
+                            }} />
                         <Button type='submit' color='primary' variant='contained' fullWidth style={btnStyle}>Sign In</Button>
-                        <Typography > Need an account?
-                            Sign Up
-                        </Typography>
+                        <Link component="button" variant="body2" sx={{ color: 'white' }} onClick={() => { }}
+                        >Need an account? Sign Up</Link>
                     </Paper>
                 </Grid>
             </Modal>
@@ -46,24 +53,24 @@ export default function Login() {
     )
 }
 
-const boxStyle = {
+const paperStyle = {
     padding: '10px 20px 20px 20px',
     margin: "20px auto",
     position: 'absolute',
-    top: '50%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     height: '50vh',
     width: 280,
-    backgroundColor: 'gray',
-    // border: '2px solid #000',
+    backgroundColor: '#545454',
+    border: '2px solid #CCC',
     boxShadow: 24,
     p: 4,
 };
 
 const avatarStyle = {
     backgroundColor: '#14bc14a6',
-    color: 'gray'
+    color: 'white'
 };
 
 const btnStyle = { margin: '8px 0' }

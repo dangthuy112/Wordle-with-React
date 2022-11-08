@@ -5,11 +5,11 @@ import { getNewSolution, useGetWordsQuery } from '../features/wordsSlice';
 import useWordle from '../hooks/useWordle';
 import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
-import Modal from './Modal';
+import GameOver from './GameOver';
 
 export default function Wordle() {
     const { currentGuess, handleKeyup, guesses, isCorrect, turn,
-        usedKeys, isWrongGuess, handleNewGame, showModal, setShowModal }
+        usedKeys, isWrongGuess, handleNewGame, showGameOver, setShowGameOver }
         = useWordle();
     const { data: words } = useGetWordsQuery();
     const dispatch = useDispatch();
@@ -18,12 +18,12 @@ export default function Wordle() {
         window.addEventListener('keyup', handleKeyup);
 
         if (isCorrect) {
-            setTimeout(() => setShowModal(true), 2200);
+            setTimeout(() => setShowGameOver(true), 2200);
             window.removeEventListener('keyup', handleKeyup)
         }
 
         if (turn > 5) {
-            setTimeout(() => setShowModal(true), 2200);
+            setTimeout(() => setShowGameOver(true), 2200);
             window.removeEventListener('keyup', handleKeyup)
         }
 
@@ -32,14 +32,14 @@ export default function Wordle() {
 
     useEffect(() => {
         dispatch(getNewSolution(words));
-    }, [])
+    }, [words])
 
     return (
         <div>
             <WordleGrid currentGuess={currentGuess} guesses={guesses}
                 turn={turn} isWrongGuess={isWrongGuess} />
             <Keypad usedKeys={usedKeys} />
-            {showModal && <Modal isCorrect={isCorrect} turn={turn}
+            {showGameOver && <GameOver isCorrect={isCorrect} turn={turn}
                 handleNewGame={handleNewGame} />}
         </div>
     )
