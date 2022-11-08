@@ -15,6 +15,15 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState(null);
 
+    const handleWelcome = () => {
+        setCurrentModal('welcome')
+    }
+
+    const handleRegisterButton = () => {
+        setCurrentModal('register')
+    }
+
+
     useEffect(() => {
         setErrMsg(null)
     }, [user, pwd])
@@ -56,7 +65,7 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
                 <Paper style={paperStyle}>
                     <Grid container alignItems="center" direction="column" justifyContent="space-around">
                         <Grid container alignItems="left">
-                            <IconButton sx={{ color: 'white', backgroundColor: '#1565c0' }}>
+                            <IconButton sx={{ color: 'white', backgroundColor: '#1565c0' }} onClick={handleWelcome} >
                                 <ArrowBackOutlinedIcon />
                             </IconButton>
                         </Grid>
@@ -69,14 +78,14 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
                         </Grid>
                         {errMsg && <Alert severity='error' variant="outlined" sx={{ color: '#f44336', margin: '-5px 0 10px 0' }}>{errMsg}</Alert>}
                         <TextField label='Username' placeholder='Enter Username' variant='filled'
-                            fullWidth required onChange={handleUserInput} 
+                            fullWidth required onChange={handleUserInput}
                             sx={{ input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
                         <TextField label='Password' placeholder='Enter Password' variant='filled'
                             fullWidth required type='password' onChange={handlePwdInput}
                             sx={{ mt: '8px', input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
                         <Button type='submit' color='primary' variant='contained' fullWidth style={btnStyle} onClick={handleSubmit}
                         >Sign In</Button>
-                        <Link component="button" variant="body2" sx={{ color: 'white' }} onClick={() => { }}
+                        <Link component="button" variant="body2" sx={{ color: 'white' }} onClick={handleRegisterButton}
                         >Need an account? Sign Up</Link>
                     </Grid>
                 </Paper>
