@@ -98,10 +98,10 @@ const paperStyle = {
     padding: '10px 20px 20px 20px',
     margin: "20px auto",
     position: 'absolute',
-    top: '40%',
+    top: '45%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    height: '50vh',
+    height: '55vh',
     width: 280,
     backgroundColor: '#545454',
     border: '2px solid #CCC',
@@ -114,4 +114,4 @@ const avatarStyle = {
     color: 'white'
 };
 
-const btnStyle = { margin: '8px 0' }
+const btnStyle = { margin: '15px 0' }

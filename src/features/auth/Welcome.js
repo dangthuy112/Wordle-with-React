@@ -32,7 +32,7 @@ export default function Welcome({ setCurrentModal, setIsLoggedIn, setIsGuest }) 
                         alignItems="stretch">
                         <Typography variant='h4' sx={{ color: 'white' }}>Welcome to Wordle!</Typography>
                         <Divider />
-                        <Button variant='contained' fullWidth sx={{ mt: '10px' }}
+                        <Button variant='contained' fullWidth sx={{ mt: '5px' }}
                             onClick={handleLoginButton}>Sign In</Button>
                         <Button variant='contained' fullWidth
                             onClick={handleRegisterButton}>Register</Button>
@@ -54,7 +54,7 @@ const paperStyle = {
     top: '45%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    height: '60vh',
+    height: '55vh',
     width: 280,
     backgroundColor: '#545454',
     border: '2px solid #CCC',

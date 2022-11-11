@@ -1,6 +1,5 @@
 *TODO*
 -Personalized account for keeping track of stats
-
     -setup stats display
     -previousGames logic
 
