@@ -8,7 +8,7 @@ import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
 import GameOver from './GameOver';
 
-export default function Wordle() {
+export default function Wordle({ authModalOpen }) {
     const { currentGuess, handleKeyup, guesses, isCorrect, turn,
         usedKeys, isWrongGuess, handleNewGame, showGameOver, setShowGameOver }
         = useWordle();
@@ -16,20 +16,22 @@ export default function Wordle() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        window.addEventListener('keyup', handleKeyup);
+        if (!authModalOpen) {
+            window.addEventListener('keyup', handleKeyup);
 
-        if (isCorrect) {
-            setTimeout(() => setShowGameOver(true), 2200);
-            window.removeEventListener('keyup', handleKeyup)
-        }
+            if (isCorrect) {
+                setTimeout(() => setShowGameOver(true), 2200);
+                window.removeEventListener('keyup', handleKeyup)
+            }
 
-        if (turn > 5) {
-            setTimeout(() => setShowGameOver(true), 2200);
-            window.removeEventListener('keyup', handleKeyup)
+            if (turn > 5) {
+                setTimeout(() => setShowGameOver(true), 2200);
+                window.removeEventListener('keyup', handleKeyup)
+            }
         }
 
         return () => window.removeEventListener('keyup', handleKeyup)
-    }, [currentGuess, turn, isCorrect]);
+    }, [authModalOpen, currentGuess, turn, isCorrect]);
 
     useEffect(() => {
         dispatch(getNewSolution(words));

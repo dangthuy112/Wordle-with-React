@@ -12,11 +12,3 @@ ReactDOM.render(
   ,
   document.getElementById('root')
 )
-
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-
-//     }
-//   }
-// })

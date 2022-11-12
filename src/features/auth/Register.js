@@ -4,14 +4,16 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import axios from 'axios';
 
-export default function Register({ setCurrentModal }) {
-    const [open, setOpen] = useState(true);
-    const handleClose = () => { };
+export default function Register({ setCurrentModal, authModalOpen, setAuthModalOpen }) {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [confirmPwd, setConfirmPwd] = useState('');
     const [errMsg, setErrMsg] = useState(null);
     const [success, setSuccess] = useState(false);
+
+    const handleClose = () => {
+        setAuthModalOpen(false);
+    };
 
     const handleWelcomeButton = () => {
         setCurrentModal('welcome');
@@ -29,7 +31,6 @@ export default function Register({ setCurrentModal }) {
             handleSubmit(event);
         }
     }
-
     useEffect(() => {
         window.addEventListener('keyup', handleEnter);
 
@@ -69,7 +70,6 @@ export default function Register({ setCurrentModal }) {
             setPwd('');
             setConfirmPwd('');
         } catch (err) {
-            console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response.');
             } else if (err.response?.status === 409) {
@@ -94,7 +94,7 @@ export default function Register({ setCurrentModal }) {
     return (
         <div>
             <Modal
-                open={open}
+                open={authModalOpen}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"

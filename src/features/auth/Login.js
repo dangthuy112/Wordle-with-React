@@ -6,14 +6,16 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from './authSlice';
 import { useLoginMutation } from './authApiSlice';
 
-export default function Login({ setCurrentModal, setIsLoggedIn }) {
-    const [open, setOpen] = useState(true);
-    const handleClose = () => { };
+export default function Login({ setCurrentModal, setIsLoggedIn, authModalOpen, setAuthModalOpen }) {
     const dispatch = useDispatch();
-    const [login, { isLoading }] = useLoginMutation();
+    const [login] = useLoginMutation();
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState(null);
+
+    const handleClose = () => {
+        setAuthModalOpen(false);
+    };
 
     const handleWelcome = () => {
         setCurrentModal('welcome')
@@ -23,27 +25,42 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
         setCurrentModal('register')
     }
 
-
     useEffect(() => {
         setErrMsg(null)
     }, [user, pwd])
 
+    const handleEnter = (event) => {
+        if (event.key === 'Enter' || event.key === 'NumpadEnter') {
+            handleSubmit(event);
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('keyup', handleEnter);
+
+        return () => window.removeEventListener('keyup', handleEnter)
+    }, [handleEnter]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!user || !pwd) {
+            setErrMsg('Missing Username or Password');
+            return;
+        }
+
         try {
             const userData = await login({ user, pwd }).unwrap()
-            setCredentials(userData)
+            dispatch(setCredentials(userData));
             setUser('');
             setPwd('');
             setIsLoggedIn(true);
-            setOpen(false);
+            handleClose();
         } catch (err) {
-            if (!err?.originalStatus) {
+            console.log(err);
+            if (!err?.status) {
                 setErrMsg('No Server Response');
-            } else if (err.originalStatus === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.originalStatus === 401) {
+            } else if (err?.originalStatus === 401) {
                 setErrMsg('Username and Password doesn\'t match');
             } else {
                 setErrMsg('Login Failed');
@@ -57,7 +74,7 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
     return (
         <div>
             <Modal
-                open={open}
+                open={authModalOpen}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -78,9 +95,9 @@ export default function Login({ setCurrentModal, setIsLoggedIn }) {
                         </Grid>
                         {errMsg && <Alert severity='error' variant="outlined" sx={{ color: '#f44336', margin: '-5px 0 10px 0' }}>{errMsg}</Alert>}
                         <TextField label='Username' placeholder='Enter Username' variant='filled'
-                            fullWidth required onChange={handleUserInput}
+                            fullWidth required value={user} onChange={handleUserInput}
                             sx={{ input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
-                        <TextField label='Password' placeholder='Enter Password' variant='filled'
+                        <TextField label='Password' placeholder='Enter Password' variant='filled' value={pwd}
                             fullWidth required type='password' onChange={handlePwdInput}
                             sx={{ mt: '8px', input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
                         <Button type='submit' color='primary' variant='contained' fullWidth style={btnStyle} onClick={handleSubmit}

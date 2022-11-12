@@ -2,6 +2,7 @@
 -Personalized account for keeping track of stats
     -setup stats display
     -previousGames logic
+-Header Menu
 
 *DONE*
 -Personalized account for keeping track of stats

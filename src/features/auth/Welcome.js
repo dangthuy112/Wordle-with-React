@@ -1,28 +1,22 @@
 import { useState } from 'react'
 import { Button, Modal, Grid, Typography, Paper, Divider } from '@mui/material'
 
-export default function Welcome({ setCurrentModal, setIsLoggedIn, setIsGuest }) {
-    const [open, setOpen] = useState(true);
-    const handleClose = () => { };
-
-    const handleLoginButton = () => {
-        setCurrentModal('login')
+export default function Welcome({ setCurrentModal, setIsLoggedIn, authModalOpen, setAuthModalOpen }) {
+    const handleClose = () => {
+        setIsLoggedIn(false);
+        setAuthModalOpen(false);
     }
-
-    const handleRegisterButton = () => {
-        setCurrentModal('register')
-    }
+    const handleLoginButton = () => setCurrentModal('login');
+    const handleRegisterButton = () => setCurrentModal('register');
 
     const handleGuestButton = () => {
-        setIsLoggedIn(true);
-        setIsGuest(true);
-        setOpen(false);
+        handleClose();
     }
 
     return (
         <div>
             <Modal
-                open={open}
+                open={authModalOpen}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
