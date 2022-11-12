@@ -2,10 +2,14 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../features/auth/authSlice';
+import { useState } from 'react';
 
-export default function PositionedMenu({ isLoggedIn, setAuthModalOpen }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModalOpen }) {
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const dispatch = useDispatch();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -19,13 +23,15 @@ export default function PositionedMenu({ isLoggedIn, setAuthModalOpen }) {
         setAnchorEl(null);
     };
 
+    const handleLogOut = () => {
+        dispatch(logOut);
+        setIsLoggedIn(false);
+        handleClose();
+    }
+
     return (
         <div>
-            {!isLoggedIn ? <Button
-                id="demo-positioned-button"
-                aria-controls={open ? 'demo-positioned-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
+            {!isLoggedIn ? <Button sx={{ backgroundColor: '#1565c0', color: 'white' }}
                 onClick={handleOpenModal}
             >
                 Sign In
@@ -57,8 +63,7 @@ export default function PositionedMenu({ isLoggedIn, setAuthModalOpen }) {
                         }}
                     >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
                 </div>)
             }

@@ -35,7 +35,8 @@ function App() {
               <IconButton sx={{ color: 'white', backgroundColor: '#1565c0', mr: '10px', mb: '5px' }} onClick={() => { }}>
                 <HelpIcon />
               </IconButton>
-              <ProfileMenu isLoggedIn={isLoggedIn} setAuthModalOpen={setAuthModalOpen} />
+              <ProfileMenu isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
+                setAuthModalOpen={setAuthModalOpen} />
             </Grid>
           </Grid>
           <Divider sx={{ borderColor: 'white', mb: '15px' }} />

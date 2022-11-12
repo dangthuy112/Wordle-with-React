@@ -6,7 +6,7 @@ import { useGetWordsQuery } from '../features/words/wordsApiSlice';
 import useWordle from '../hooks/useWordle';
 import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
-import GameOver from './GameOver';
+import GameOver from './modals/GameOver';
 
 export default function Wordle({ authModalOpen }) {
     const { currentGuess, handleKeyup, guesses, isCorrect, turn,

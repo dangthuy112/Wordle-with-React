@@ -3,15 +3,18 @@
     -setup stats display
     -previousGames logic
 -Header Menu
+    -link buttons to actions
+    
 
 *DONE*
 -Personalized account for keeping track of stats
     -welcome modal
-    -register
+    -register modal
         -user already exist
-    -login
+    -login modal
         -username/password do not match
         -play as guest
+    -closing logic for modals
     -setup users db
     -connect frontend to users db
 -Fetching from wordsDB.json instead of json webserver

@@ -8,7 +8,7 @@ import { useLoginMutation } from './authApiSlice';
 
 export default function Login({ setCurrentModal, setIsLoggedIn, authModalOpen, setAuthModalOpen }) {
     const dispatch = useDispatch();
-    const [login] = useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState(null);
@@ -93,18 +93,25 @@ export default function Login({ setCurrentModal, setIsLoggedIn, authModalOpen, s
                                 margin: '5px 0 20px 0'
                             }}>Sign In</Typography>
                         </Grid>
-                        {errMsg && <Alert severity='error' variant="outlined" sx={{ color: '#f44336', margin: '-5px 0 10px 0' }}>{errMsg}</Alert>}
-                        <TextField label='Username' placeholder='Enter Username' variant='filled'
-                            fullWidth required value={user} onChange={handleUserInput}
-                            sx={{ input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
-                        <TextField label='Password' placeholder='Enter Password' variant='filled' value={pwd}
-                            fullWidth required type='password' onChange={handlePwdInput}
-                            sx={{ mt: '8px', input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
-                        <Button type='submit' color='primary' variant='contained' fullWidth style={btnStyle} onClick={handleSubmit}
-                        >Sign In</Button>
-                        <Link component="button" variant="body2" sx={{ color: 'white' }} onClick={handleRegisterButton}
-                        >Need an account? Sign Up</Link>
+                        {isLoading ?
+                            <h1>Loading...</h1>
+                            :
+                            <div>
+                                {errMsg && <Alert severity='error' variant="outlined" sx={{ color: '#f44336', margin: '-5px 0 10px 0' }}>{errMsg}</Alert>}
+                                <TextField label='Username' placeholder='Enter Username' variant='filled'
+                                    fullWidth required value={user} onChange={handleUserInput}
+                                    sx={{ input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
+                                <TextField label='Password' placeholder='Enter Password' variant='filled' value={pwd}
+                                    fullWidth required type='password' onChange={handlePwdInput}
+                                    sx={{ mt: '8px', input: { color: 'white' }, placeholder: { color: 'white' }, label: { color: 'white' } }} />
+                                <Button type='submit' color='primary' variant='contained' fullWidth style={btnStyle} onClick={handleSubmit}
+                                >Sign In</Button>
+                                <Link component="button" variant="body2" sx={{ color: 'white' }} onClick={handleRegisterButton}
+                                >Need an account? Sign Up</Link>
+                            </div>
+                        }
                     </Grid>
+
                 </Paper>
             </Modal>
         </div >
