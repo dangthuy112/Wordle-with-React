@@ -1,11 +1,8 @@
-import { Button, Modal, Grid, Typography, Paper, Divider, Box, List, IconButton } from '@mui/material'
-import { useState } from 'react';
+import { Modal, Grid, Typography, Paper, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Image } from '@mui/icons-material';
 import correct from '../img/correct.png';
 import greentiles from '../img/greentiles.png';
 import twosameletters from '../img/twosameletters.png';
-
 
 export default function Help({ helpModalOpen, setHelpModalOpen }) {
     const handleClose = () => {
@@ -23,7 +20,8 @@ export default function Help({ helpModalOpen, setHelpModalOpen }) {
                 <Paper style={paperStyle}>
                     <Box sx={boxStyle}>
                         <Grid container direction='column' alignItems="flex-end">
-                            <IconButton sx={{ color: 'white', position: 'absolute', top: '8px', right: '5px' }}>
+                            <IconButton sx={{ color: 'white', position: 'absolute', top: '8px', right: '5px' }}
+                                onClick={handleClose}>
                                 <CloseIcon />
                             </IconButton>
                         </Grid>

@@ -43,6 +43,7 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
                         aria-controls={open ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
+                        sx={{ backgroundColor: '#1565c0', color: 'white' }}
                         onClick={handleClick}
                     >
                         Profile
@@ -62,7 +63,7 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
                             horizontal: 'left',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>Stats</MenuItem>
                         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
                 </div>)
