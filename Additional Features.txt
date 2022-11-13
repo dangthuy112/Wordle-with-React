@@ -4,8 +4,11 @@
     -previousGames logic
 -Header Menu
     -link buttons to actions
+-Help modal
+    -add pictures
+    -help text
     
-
+    
 *DONE*
 -Personalized account for keeping track of stats
     -welcome modal
