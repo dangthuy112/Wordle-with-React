@@ -2,12 +2,6 @@
 -Personalized account for keeping track of stats
     -setup stats display
     -previousGames logic
--Header Menu
-    -link buttons to actions
--Help modal
-    -add pictures
-    -help text
-    
     
 *DONE*
 -Personalized account for keeping track of stats
@@ -20,6 +14,11 @@
     -closing logic for modals
     -setup users db
     -connect frontend to users db
+-Help modal
+    -add pictures
+    -help text
+-Header Menu
+    -link buttons to actions
 -Fetching from wordsDB.json instead of json webserver
     -refactor fetching to RTK query
     -waiting for data animation

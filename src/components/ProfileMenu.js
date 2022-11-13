@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -45,11 +44,8 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
                         aria-expanded={open ? 'true' : undefined}
                         sx={{ backgroundColor: '#1565c0', color: 'white' }}
                         onClick={handleClick}
-                    >
-                        Profile
-                    </Button>
-                    <Menu
-                        id="demo-positioned-menu"
+                    >Profile</Button>
+                    <Menu id="demo-positioned-menu"
                         aria-labelledby="demo-positioned-button"
                         anchorEl={anchorEl}
                         open={open}
@@ -61,8 +57,7 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
                         transformOrigin={{
                             vertical: 'top',
                             horizontal: 'left',
-                        }}
-                    >
+                        }}>
                         <MenuItem onClick={handleClose}>Stats</MenuItem>
                         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>

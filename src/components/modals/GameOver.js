@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { selectDefinition, selectSolution } from '../../features/words/wordsSlice';
 
 export default function GameOver({ isCorrect, turn, handleNewGame }) {
     const solution = useSelector(selectSolution);
     const definition = useSelector(selectDefinition);
+
+    const handleEnter = (event) => {
+        if (event.key === 'Enter' || event.key === 'NumpadEnter') {
+            handleNewGame()
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('keyup', handleEnter);
+
+        return () => window.removeEventListener('keyup', handleEnter)
+    }, [handleEnter]);
 
     return (
         <div className="modal">
