@@ -17,25 +17,11 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
     const id = useSelector(selectCurrentID);
     const { data: words } = useGetWordsQuery();
     const { data: history, isSuccess } = useGetHistoryQuery(id);
-    const [updateHistory, { isLoading }] = useUpdateHistoryMutation();
+    const [updateHistory] = useUpdateHistoryMutation();
     const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
 
-    const updateHistoryAsync = async (guessesToSave) => {
-        try {
-            let newHistory = [...history];
-            if (isLoggedIn && isSuccess) {
-                if (newHistory.length == 20) {
-                    newHistory.shift();
-                }
-                newHistory.push({ solution: solution, guesses: guessesToSave })
-                await updateHistory({ id, history: newHistory }).unwrap();
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
+    //handle key press and game ending to show GameOver modal
     useEffect(() => {
         if (!authModalOpen) {
             window.addEventListener('keyup', handleKeyup);
@@ -54,7 +40,23 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         return () => window.removeEventListener('keyup', handleKeyup)
     }, [authModalOpen, currentGuess, turn, isCorrect]);
 
+    //when the game is over update history
     useEffect(() => {
+        const updateHistoryAsync = async (guessesToSave) => {
+            try {
+                let newHistory = [...history];
+                if (isLoggedIn && isSuccess) {
+                    if (newHistory.length == 20) {
+                        newHistory.shift();
+                    }
+                    newHistory.push({ solution: solution, guesses: guessesToSave })
+                    await updateHistory({ id, history: newHistory }).unwrap();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         if (showGameOver) {
             if (isCorrect) {
                 updateHistoryAsync(turn + 1);
@@ -66,6 +68,7 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         }
     }, [showGameOver])
 
+    //once wordsDB.json has been fetched, grab the first solution
     useEffect(() => {
         dispatch(getNewSolution(words));
     }, [words])
