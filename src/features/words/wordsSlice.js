@@ -48,6 +48,7 @@ export const getDefinitionAsync = (data) => async (dispatch) => {
                 dispatch(setDefinition(response.data.definitions));
             }).catch((error) => {
                 if (error?.response?.status === 404) {
+                    dispatch(setDefinition([]));
                     console.error('WordAPI does not have the definition.');
                 }
             });

@@ -1,8 +1,16 @@
 *TODO*
 -Personalized account for keeping track of stats
     -setup stats display
+        -bar chart
+        -win percentage, highest streak, current streak
     -previousGames logic
-    
+        -RTK query for handling game history
+        -sorting by dates for chronological history
+        -only storing 20 previous, will delete the latest history to make room
+-Display definition of the solution after game finishes using WordAPI
+    -multiple definition?    
+-Make keyboard accessible for mobile browser
+
 *DONE*
 -Personalized account for keeping track of stats
     -welcome modal
