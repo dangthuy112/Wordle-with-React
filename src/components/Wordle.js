@@ -55,14 +55,16 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
     }, [authModalOpen, currentGuess, turn, isCorrect]);
 
     useEffect(() => {
-        if (isCorrect) {
-            updateHistoryAsync(turn + 1);
-        }
+        if (showGameOver) {
+            if (isCorrect) {
+                updateHistoryAsync(turn + 1);
+            }
 
-        if (turn > 5) {
-            updateHistoryAsync(0);
+            if (turn > 5) {
+                updateHistoryAsync(0);
+            }
         }
-    }, [isCorrect, turn])
+    }, [showGameOver])
 
     useEffect(() => {
         dispatch(getNewSolution(words));
