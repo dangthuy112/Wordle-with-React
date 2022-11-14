@@ -40,7 +40,7 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         return () => window.removeEventListener('keyup', handleKeyup)
     }, [authModalOpen, currentGuess, turn, isCorrect]);
 
-    //when the game is over update history
+    //when the game is over, update history
     useEffect(() => {
         const updateHistoryAsync = async (guessesToSave) => {
             try {
@@ -59,7 +59,7 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
 
         if (showGameOver) {
             if (isCorrect) {
-                updateHistoryAsync(turn + 1);
+                updateHistoryAsync(turn);
             }
 
             if (turn > 5) {

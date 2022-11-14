@@ -3,16 +3,15 @@
     -setup stats display
         -bar chart
         -win percentage, highest streak, current streak
-    -previousGames logic
-        -RTK query for handling game history
-        -sorting by dates for chronological history
-        -only storing 20 previous, will delete the latest history to make room
+
 -Display definition of the solution after game finishes using WordAPI
     -multiple definition?    
 -Make keyboard accessible for mobile browser
 
 *DONE*
 -Personalized account for keeping track of stats
+    -setup stats display
+        -bar chart
     -welcome modal
     -register modal
         -user already exist
@@ -20,6 +19,9 @@
         -username/password do not match
         -play as guest
     -closing logic for modals
+    -previousGames logic
+        -RTK query for handling game history
+        -only storing 20 previous, will delete the latest history to make room
     -setup users db
     -connect frontend to users db
 -Help modal

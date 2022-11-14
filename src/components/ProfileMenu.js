@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { logOut } from '../features/auth/authSlice';
 import { useState } from 'react';
 
-export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModalOpen }) {
+export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModalOpen, setStatModalOpen }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch();
@@ -14,8 +14,13 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
         setAnchorEl(event.currentTarget);
     };
 
-    const handleOpenModal = () => {
+    const handleOpenAuthModal = () => {
         setAuthModalOpen(true);
+
+    }
+    const handleOpenStatModal = () => {
+        setStatModalOpen(true);
+        handleClose();
     }
 
     const handleClose = () => {
@@ -31,7 +36,7 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
     return (
         <div>
             {!isLoggedIn ? <Button sx={{ backgroundColor: '#1565c0', color: 'white' }}
-                onClick={handleOpenModal}
+                onClick={handleOpenAuthModal}
             >
                 Sign In
             </Button>
@@ -58,7 +63,7 @@ export default function PositionedMenu({ isLoggedIn, setIsLoggedIn, setAuthModal
                             vertical: 'top',
                             horizontal: 'left',
                         }}>
-                        <MenuItem onClick={handleClose}>Stats</MenuItem>
+                        <MenuItem onClick={handleOpenStatModal}>Stats</MenuItem>
                         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
                 </div>)
