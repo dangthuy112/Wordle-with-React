@@ -8,18 +8,31 @@ export const userApiSlice = apiSlice.injectEndpoints({
             transformResponse: responseData => {
                 return responseData.history
             },
-            providesTags: ['History']
+            providesTags: ['Stat']
         }),
-        //update history
-        updateHistory: builder.mutation({
+        //get stat of user
+        getStat: builder.query({
+            query: id => `/users/stat/${id}`,
+            transformResponse: responseData => {
+                return responseData.stat
+            },
+            providesTags: ['Stat']
+        }),
+        //update stat of user
+        updateStat: builder.mutation({
             query: userData => ({
-                url: '/users/history',
+                url: '/users/stat',
                 method: 'PUT',
                 body: { ...userData }
             }),
-            invalidatesTags: ['History']
+            invalidatesTags: ['Stat']
         })
     })
 })
 
-export const { useGetHistoryQuery, useUpdateHistoryMutation } = userApiSlice;
+export const {
+    useGetHistoryQuery,
+    useUpdateHistoryMutation,
+    useGetStatQuery,
+    useUpdateStatMutation
+} = userApiSlice;

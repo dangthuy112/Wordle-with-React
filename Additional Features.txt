@@ -1,15 +1,15 @@
 *TODO*
--Personalized account for keeping track of stats
-    -setup stats display
-        -win percentage, highest streak, current streak
 -Display definition of the solution after game finishes using WordAPI
-    -multiple definition?    
+    -multiple definition?
 -Make keyboard accessible for mobile browser
 
 *DONE*
 -Personalized account for keeping track of stats
     -setup stats display
         -bar chart
+        -win percentage, highest streak, current streak
+            -logic
+            -display
     -welcome modal
     -register modal
         -user already exist

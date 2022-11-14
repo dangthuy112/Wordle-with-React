@@ -8,7 +8,7 @@ export default function GameOver({ isCorrect, turn, handleNewGame }) {
 
     const handleEnter = (event) => {
         if (event.key === 'Enter' || event.key === 'NumpadEnter') {
-            handleNewGame()
+            handleNewGame();
         }
     }
 

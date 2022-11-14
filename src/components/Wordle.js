@@ -7,7 +7,12 @@ import useWordle from '../hooks/useWordle';
 import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
 import GameOver from './modals/GameOver';
-import { useUpdateHistoryMutation, useGetHistoryQuery } from '../features/user/userApiSlice';
+import {
+    useUpdateHistoryMutation,
+    useGetHistoryQuery,
+    useGetStatQuery,
+    useUpdateStatMutation
+} from '../features/user/userApiSlice';
 import { selectCurrentID } from '../features/auth/authSlice';
 
 export default function Wordle({ authModalOpen, isLoggedIn }) {
@@ -16,8 +21,10 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         = useWordle();
     const id = useSelector(selectCurrentID);
     const { data: words } = useGetWordsQuery();
-    const { data: history, isSuccess } = useGetHistoryQuery(id);
-    const [updateHistory] = useUpdateHistoryMutation();
+    const { data: history } = useGetHistoryQuery(id);
+    const { data: stat } = useGetStatQuery(id);
+    // const [updateHistory] = useUpdateHistoryMutation();
+    const [updateStat] = useUpdateStatMutation();
     const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
 
@@ -29,9 +36,7 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
             if (isCorrect) {
                 setTimeout(() => setShowGameOver(true), 2200);
                 window.removeEventListener('keyup', handleKeyup)
-            }
-
-            if (turn > 5) {
+            } else if (turn > 5) {
                 setTimeout(() => setShowGameOver(true), 2200);
                 window.removeEventListener('keyup', handleKeyup)
             }
@@ -40,18 +45,33 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         return () => window.removeEventListener('keyup', handleKeyup)
     }, [authModalOpen, currentGuess, turn, isCorrect]);
 
-    //when the game is over, update history
+    //when the game is over, update history and stat of user
     useEffect(() => {
-        const updateHistoryAsync = async (guessesToSave) => {
+        const updateStatAsync = async (guessesToSave, isGameWon) => {
             try {
+                //make changes to history
                 let newHistory = [...history];
-                if (isLoggedIn && isSuccess) {
+                if (isLoggedIn) {
                     if (newHistory.length == 20) {
                         newHistory.shift();
                     }
                     newHistory.push({ solution: solution, guesses: guessesToSave })
-                    await updateHistory({ id, history: newHistory }).unwrap();
                 }
+
+                //make changes to stat
+                let { played, currentStreak, maxStreak, gamesWon } = stat;
+                if (isGameWon) {
+                    currentStreak += 1;
+                    if (currentStreak > maxStreak) {
+                        maxStreak = currentStreak;
+                    }
+                    gamesWon++;
+                } else {
+                    currentStreak = 0;
+                }
+                played++;
+
+                await updateStat({ id, stat: { played, currentStreak, maxStreak, gamesWon }, history: newHistory }).unwrap();
             } catch (err) {
                 console.error(err);
             }
@@ -59,11 +79,9 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
 
         if (showGameOver) {
             if (isCorrect) {
-                updateHistoryAsync(turn);
-            }
-
-            if (turn > 5) {
-                updateHistoryAsync(0);
+                updateStatAsync(turn, true);
+            } else {
+                updateStatAsync(0, false);
             }
         }
     }, [showGameOver])

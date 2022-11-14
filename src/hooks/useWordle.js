@@ -18,14 +18,14 @@ const useWordle = () => {
 
     //handle restart of game
     const handleNewGame = () => {
-        setShowGameOver(false);
         setIsCorrect(false);
+        setTurn(0);
         setCurrentGuess('');
         setGuesses([...Array(6)]);
         setHistory([]);
         setIsWrongGuess(false);
-        setTurn(0);
         setUsedKeys({});
+        setShowGameOver(false);
 
         dispatch(getNewSolution(words));
     }

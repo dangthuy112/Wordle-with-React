@@ -1,13 +1,14 @@
-import { Modal, Grid, Typography, Paper, IconButton } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { useGetHistoryQuery } from '../../features/user/userApiSlice';
+import { Modal, Grid, Typography, Paper, IconButton } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useGetHistoryQuery, useGetStatQuery } from '../../features/user/userApiSlice';
 import { selectCurrentID } from '../../features/auth/authSlice';
 
 export default function Stat({ statModalOpen, setStatModalOpen }) {
     const id = useSelector(selectCurrentID);
     const { data: history, isLoading, isSuccess, isError, error } = useGetHistoryQuery(id);
+    const { data: stat } = useGetStatQuery(id);
 
     const handleClose = () => {
         setStatModalOpen(false);
@@ -23,30 +24,31 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
                 <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
                     width: '40px', p: '0 35px'
                 }}>
-                    <Typography variant='h4'>6</Typography>
+                    <Typography variant='h4'>{stat.played}</Typography>
                     <Typography variant='caption'>Played</Typography>
                 </Grid>
                 <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
                     width: '40px', p: '0 35px'
                 }}>
-                    <Typography variant='h4'>67</Typography>
-                    <Typography variant='caption'>Win %</Typography>
+                    <Typography variant='h4'>{Math.floor(100 * (stat.gamesWon / stat.played))}</Typography>
+                    <Typography variant='caption'>Win%</Typography>
                 </Grid>
                 <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
                     width: '40px', p: '0 35px'
                 }}>
-                    <Typography variant='h4'>3</Typography>
+                    <Typography variant='h4'>{stat.currentStreak}</Typography>
                     <Typography variant='caption'>Current Streak</Typography>
                 </Grid>
                 <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
                     width: '40px', p: '0 35px'
                 }}>
-                    <Typography variant='h4'>4</Typography>
+                    <Typography variant='h4'>{stat.maxStreak}</Typography>
                     <Typography variant='caption'>Max Streak</Typography>
                 </Grid>
             </Grid>
         )
 
+        let keyCount = 0;
         historyContent =
             <Grid container direction='column' >
                 {history.length === 0 ?
@@ -56,7 +58,7 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
                     :
                     history.map((game) => {
                         return (
-                            <Grid key={game.solution} container justifyContent='flex-start' alignItems='center' sx={{ m: '2px 0px' }}>
+                            <Grid key={keyCount++} container justifyContent='flex-start' alignItems='center' sx={{ m: '2px 0px' }}>
                                 <Typography variant='button' align='left' sx={{ padding: '3px 10px', width: '55px' }}
                                 >{game.solution}</Typography>
                                 {

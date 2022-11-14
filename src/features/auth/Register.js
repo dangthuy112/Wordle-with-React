@@ -80,15 +80,8 @@ export default function Register({ setCurrentModal, authModalOpen, setAuthModalO
         }
     }
 
-    const handleUserInput = (e) => {
-        setUser(e.target.value);
-        console.log(user);
-    }
-
-    const handlePwdInput = (e) => {
-        setPwd(e.target.value);
-        console.log(pwd);
-    }
+    const handleUserInput = (e) => setUser(e.target.value);
+    const handlePwdInput = (e) => setPwd(e.target.value);
     const handleConfirmPwdInput = (e) => setConfirmPwd(e.target.value);
 
     return (
