@@ -49,6 +49,7 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
         )
 
         let keyCount = 0;
+        let reversedHistory = [...history].reverse();
         historyContent =
             <Grid container direction='column' >
                 {history.length === 0 ?
@@ -56,7 +57,7 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
                         No Previous Games Yet... Play One to Update Your Stat!
                     </Typography>
                     :
-                    history.map((game) => {
+                    reversedHistory.map((game) => {
                         return (
                             <Grid key={keyCount++} container justifyContent='flex-start' alignItems='center' sx={{ m: '2px 0px' }}>
                                 <Typography variant='button' align='left' sx={{ padding: '3px 10px', width: '55px' }}
