@@ -8,7 +8,6 @@ import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
 import GameOver from './modals/GameOver';
 import {
-    useUpdateHistoryMutation,
     useGetHistoryQuery,
     useGetStatQuery,
     useUpdateStatMutation
@@ -20,10 +19,8 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
         usedKeys, isWrongGuess, handleNewGame, showGameOver, setShowGameOver }
         = useWordle();
     const id = useSelector(selectCurrentID);
-    const { data: words } = useGetWordsQuery();
     const { data: history } = useGetHistoryQuery(id);
     const { data: stat } = useGetStatQuery(id);
-    // const [updateHistory] = useUpdateHistoryMutation();
     const [updateStat] = useUpdateStatMutation();
     const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
@@ -32,18 +29,18 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
     useEffect(() => {
         if (!authModalOpen) {
             window.addEventListener('keyup', handleKeyup);
-
-            if (isCorrect) {
-                setTimeout(() => setShowGameOver(true), 2200);
-                window.removeEventListener('keyup', handleKeyup)
-            } else if (turn > 5) {
-                setTimeout(() => setShowGameOver(true), 2200);
-                window.removeEventListener('keyup', handleKeyup)
-            }
         }
 
         return () => window.removeEventListener('keyup', handleKeyup)
-    }, [authModalOpen, currentGuess, turn, isCorrect]);
+    }, [authModalOpen, currentGuess]);
+
+    useEffect(() => {
+        if (isCorrect) {
+            setTimeout(() => setShowGameOver(true), 2200);
+        } else if (turn > 5) {
+            setTimeout(() => setShowGameOver(true), 2200);
+        }
+    }, [isCorrect, turn])
 
     //when the game is over, update history and stat of user
     useEffect(() => {
@@ -85,11 +82,6 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
             }
         }
     }, [showGameOver])
-
-    //once wordsDB.json has been fetched, grab the first solution
-    useEffect(() => {
-        dispatch(getNewSolution(words));
-    }, [words])
 
     return (
         <div>

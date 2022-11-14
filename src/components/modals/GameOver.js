@@ -6,12 +6,12 @@ export default function GameOver({ isCorrect, turn, handleNewGame }) {
     const solution = useSelector(selectSolution);
     const definition = useSelector(selectDefinition);
 
+
     const handleEnter = (event) => {
         if (event.key === 'Enter' || event.key === 'NumpadEnter') {
             handleNewGame();
         }
     }
-
     useEffect(() => {
         window.addEventListener('keyup', handleEnter);
 

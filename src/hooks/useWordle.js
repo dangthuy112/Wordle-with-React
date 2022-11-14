@@ -18,8 +18,8 @@ const useWordle = () => {
 
     //handle restart of game
     const handleNewGame = () => {
-        setIsCorrect(false);
         setTurn(0);
+        setIsCorrect(false);
         setCurrentGuess('');
         setGuesses([...Array(6)]);
         setHistory([]);

@@ -1,6 +1,6 @@
 import { Divider, Grid, IconButton, Typography } from '@mui/material';
 import { useGetWordsQuery } from './features/words/wordsApiSlice';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Wordle from './components/Wordle'
 import ProfileMenu from './components/ProfileMenu'
 import AuthModal from './features/auth/AuthModal';
@@ -8,13 +8,16 @@ import HelpIcon from '@mui/icons-material/Help';
 import { Box } from '@mui/system';
 import Help from './components/modals/Help';
 import Stat from './components/modals/Stat';
+import { useDispatch } from 'react-redux';
+import { getNewSolution } from './features/words/wordsSlice';
 
 function App() {
-  const { isLoading, isSuccess, isError, error } = useGetWordsQuery();
+  const { data: words, isLoading, isSuccess, isError, error } = useGetWordsQuery();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(true);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [statModalOpen, setStatModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   let content;
   if (isLoading) {
@@ -24,6 +27,13 @@ function App() {
   } else if (isError) {
     content = <p>{error}</p>
   }
+
+  //once wordsDB.json has been fetched, grab the first solution
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(getNewSolution(words));
+    }
+  }, [words])
 
   const handleHelpModal = () => {
     setHelpModalOpen(true);
