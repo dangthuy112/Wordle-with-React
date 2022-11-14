@@ -5,5 +5,6 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://incongruous-cyber-passionfruit.glitch.me'
     }),
+    tagTypes: ['History'],
     endpoints: builder => ({})
 })

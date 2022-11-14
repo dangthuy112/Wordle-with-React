@@ -1,13 +1,11 @@
-import { Button, Modal, Box, Grid, Avatar, Typography, TextField, Paper, IconButton, Link, Alert } from '@mui/material';
+import { Modal, Grid, Typography, Paper, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { useGetHistoryQuery } from '../../features/history/historyApiSlice';
+import { useGetHistoryQuery } from '../../features/user/userApiSlice';
 import { selectCurrentID } from '../../features/auth/authSlice';
 
 export default function Stat({ statModalOpen, setStatModalOpen }) {
-    const dispatch = useDispatch();
     const id = useSelector(selectCurrentID);
     const { data: history, isLoading, isSuccess, isError, error } = useGetHistoryQuery(id);
 
@@ -15,29 +13,65 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
         setStatModalOpen(false);
     };
 
-    let content;
+    let statContent;
+    let historyContent;
     if (isLoading) {
-        content = <p>Loading...</p>
+        historyContent = <p>Loading...</p>
     } else if (isSuccess) {
-        content =
+        statContent = (
+            <Grid container justifyContent='center' alignItems='flex-start' sx={{ p: '5px 40px' }}>
+                <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
+                    width: '40px', p: '0 35px'
+                }}>
+                    <Typography variant='h4'>6</Typography>
+                    <Typography variant='caption'>Played</Typography>
+                </Grid>
+                <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
+                    width: '40px', p: '0 35px'
+                }}>
+                    <Typography variant='h4'>67</Typography>
+                    <Typography variant='caption'>Win %</Typography>
+                </Grid>
+                <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
+                    width: '40px', p: '0 35px'
+                }}>
+                    <Typography variant='h4'>3</Typography>
+                    <Typography variant='caption'>Current Streak</Typography>
+                </Grid>
+                <Grid container direction='column' justifyContent='flex-start' alignContent='center' sx={{
+                    width: '40px', p: '0 35px'
+                }}>
+                    <Typography variant='h4'>4</Typography>
+                    <Typography variant='caption'>Max Streak</Typography>
+                </Grid>
+            </Grid>
+        )
+
+        historyContent =
             <Grid container direction='column' >
-                {history.map((game) => {
-                    return (
-                        <Grid container justifyContent='flex-start' alignItems='center' sx={{ m: '2px 0px' }}>
-                            <Typography variant='button' align='left' sx={{ padding: '3px 10px', width: '50px' }}
-                            >{game.solution}</Typography>
-                            {game.guesses !== 0 ? <Grid container justifyContent='flex-end' alignContent='center' sx={{
-                                width: `${13.5 * game.guesses}%`, background: '#52914d', pr: '5px', height: '25px'
-                            }}>
-                                {game.guesses}
-                            </Grid> : <CloseOutlinedIcon sx={{ color: 'red' }} />
-                            }
-                        </Grid>
-                    )
-                })}
+                {history.length === 0 ?
+                    <Typography variant='body2' align='center' sx={{ m: '0' }}>
+                        No Previous Games Yet... Play One to Update Your Stat!
+                    </Typography>
+                    :
+                    history.map((game) => {
+                        return (
+                            <Grid key={game.solution} container justifyContent='flex-start' alignItems='center' sx={{ m: '2px 0px' }}>
+                                <Typography variant='button' align='left' sx={{ padding: '3px 10px', width: '55px' }}
+                                >{game.solution}</Typography>
+                                {
+                                    game.guesses !== 0 ? <Grid container justifyContent='flex-end' alignContent='center' sx={{
+                                        width: `${13 * game.guesses}%`, background: '#52914d', pr: '5px', height: '25px'
+                                    }}> {game.guesses}  </Grid>
+                                        : <CloseOutlinedIcon sx={{ color: 'red' }} />
+                                }
+                            </Grid>
+                        )
+                    })
+                }
             </Grid>
     } else if (isError) {
-        content = <p>{error}</p>
+        historyContent = <p>{error}</p>
     }
 
     return (
@@ -57,10 +91,11 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
                         <Typography variant='h5' align='center' sx={{ mt: '30px' }} >
                             Statistics
                         </Typography>
-                        <Typography variant='body1' align='center' sx={{ m: '10px 0' }}>
+                        {statContent}
+                        <Typography variant='h5' align='center' sx={{ m: '10px 0' }}>
                             Previous Games
                         </Typography>
-                        {content}
+                        {historyContent}
                     </Grid>
                 </Paper>
             </Modal>
@@ -70,7 +105,7 @@ export default function Stat({ statModalOpen, setStatModalOpen }) {
 
 const paperStyle = {
     color: '#EBEBEB',
-    padding: '20px',
+    padding: '20px 20px 40px 20px',
     margin: "20px auto",
     position: 'absolute',
     top: '42%',

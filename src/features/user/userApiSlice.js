@@ -1,12 +1,11 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const historyApiSlice = apiSlice.injectEndpoints({
+export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         //get previous game history of user
         getHistory: builder.query({
             query: id => `/users/history/${id}`,
             transformResponse: responseData => {
-                console.log(responseData);
                 return responseData.history
             },
             providesTags: ['History']
@@ -23,4 +22,4 @@ export const historyApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetHistoryQuery, useUpdateHistoryMutation } = historyApiSlice;
+export const { useGetHistoryQuery, useUpdateHistoryMutation } = userApiSlice;

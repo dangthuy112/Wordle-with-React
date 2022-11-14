@@ -7,7 +7,7 @@ import useWordle from '../hooks/useWordle';
 import WordleGrid from './WordleGrid';
 import Keypad from './Keypad';
 import GameOver from './modals/GameOver';
-import { useUpdateHistoryMutation, useGetHistoryQuery } from '../features/history/historyApiSlice';
+import { useUpdateHistoryMutation, useGetHistoryQuery } from '../features/user/userApiSlice';
 import { selectCurrentID } from '../features/auth/authSlice';
 
 export default function Wordle({ authModalOpen, isLoggedIn }) {
