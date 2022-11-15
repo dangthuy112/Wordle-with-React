@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNewSolution, selectSolution, useGetWordsQuery } from "../features/wordsSlice";
+import { useGetWordsQuery } from "../features/words/wordsApiSlice";
+import { getNewSolution, selectSolution } from "../features/words/wordsSlice";
 
 const useWordle = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showGameOver, setShowGameOver] = useState(false);
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array(6)]);
@@ -11,20 +12,22 @@ const useWordle = () => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
+    const [endOfGame, setEndOfGame] = useState(false);
     const { data: words } = useGetWordsQuery();
     const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
 
     //handle restart of game
     const handleNewGame = () => {
-        setShowModal(false);
         setIsCorrect(false);
+        setTurn(0);
         setCurrentGuess('');
         setGuesses([...Array(6)]);
         setHistory([]);
         setIsWrongGuess(false);
-        setTurn(0);
         setUsedKeys({});
+        setShowGameOver(false);
+        setEndOfGame(false);
 
         dispatch(getNewSolution(words));
     }
@@ -53,6 +56,7 @@ const useWordle = () => {
     const addNewGuess = (formattedGuess) => {
         if (currentGuess === solution) {
             setIsCorrect(true);
+            setEndOfGame(true);
         }
 
         setGuesses((prevGuesses) => {
@@ -68,6 +72,10 @@ const useWordle = () => {
         setTurn((prevTurn) => {
             return prevTurn + 1
         })
+
+        if (turn > 5 && !isCorrect) {
+            setEndOfGame(true);
+        }
 
         //add used keys
         setUsedKeys((prevUsedKeys) => {
@@ -142,8 +150,11 @@ const useWordle = () => {
         usedKeys,
         isWrongGuess,
         handleNewGame,
-        showModal,
-        setShowModal
+        showGameOver,
+        setShowGameOver,
+        setIsCorrect,
+        setTurn,
+        endOfGame
     }
 }
 

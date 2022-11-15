@@ -1,18 +1,30 @@
 *TODO*
--Personalized account for keeping track of stats
-    -modal for login
-        -register
-            -user already exist
-        -login
-            -username/password do not match
-        -play as guest
-    -setup stats display
-    -previousGames logic
+-Make keyboard accessible for mobile browser
 
 *DONE*
 -Personalized account for keeping track of stats
+    -setup stats display
+        -bar chart
+        -win percentage, highest streak, current streak
+            -logic
+            -display
+    -welcome modal
+    -register modal
+        -user already exist
+    -login modal
+        -username/password do not match
+        -play as guest
+    -closing logic for modals
+    -previousGames logic
+        -RTK query for handling game history
+        -only storing 20 previous, will delete the latest history to make room
     -setup users db
     -connect frontend to users db
+-Help modal
+    -add pictures
+    -help text
+-Header Menu
+    -link buttons to actions
 -Fetching from wordsDB.json instead of json webserver
     -refactor fetching to RTK query
     -waiting for data animation
@@ -22,3 +34,4 @@
 -Shake boxes if incorrect guess format is given
 -Convert project to use Redux central storage
 -Display definition of the solution after game finishes using WordAPI
+    -multiple definitions

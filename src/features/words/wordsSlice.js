@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { apiSlice } from './api/apiSlice';
 import axios from 'axios';
 
 const initialState = {
@@ -18,18 +17,6 @@ export const wordsSlice = createSlice({
             state.definition = action.payload;
         },
     },
-})
-
-export const extendedApiSlice = apiSlice.injectEndpoints({
-    endpoints: builder => ({
-        getWords: builder.query({
-            query: () => '/wordsDB.json',
-            transformResponse: responseData => {
-                return [...responseData.solutions]
-            },
-            providesTags: ['Words']
-        })
-    })
 })
 
 export const getNewSolution = (words) => {
@@ -60,7 +47,10 @@ export const getDefinitionAsync = (data) => async (dispatch) => {
             .then((response) => {
                 dispatch(setDefinition(response.data.definitions));
             }).catch((error) => {
-                console.error(error);
+                if (error?.response?.status === 404) {
+                    dispatch(setDefinition([]));
+                    console.error('WordAPI does not have the definition.');
+                }
             });
     } catch (error) {
         console.log(error);
@@ -71,7 +61,5 @@ export const { setSolution, setDefinition } = wordsSlice.actions;
 
 export const selectSolution = (state) => state.words.solution;
 export const selectDefinition = (state) => state.words.definition;
-
-export const { useGetWordsQuery } = extendedApiSlice;
 
 export default wordsSlice.reducer;
