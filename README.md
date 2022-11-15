@@ -39,7 +39,6 @@
       <a href="#getting-started">Getting Started</a>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -66,13 +65,6 @@ Wordle game with a user database to track stats of individual user.
 * Backend was built using NodeJS with ExpressJS to connect to MongoDB.
 <br/>
 <a href="https://github.com/dangthuy112/simple_wordle_api"><strong>Link to Backend Repository</strong></a>
-<!-- 
-* [![React][React.js]][React-url]
-* [![React][React.js]][React-url]
-* [![React][React.js]][React-url]
-* [![React][React.js]][React-url]
-* [![React][React.js]][React-url]
-* [![React][React.js]][React-url] -->
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -118,7 +110,7 @@ Statistics track total games played, win percentage, and streaks. Previous games
     <img src="images/statpage.png" alt="Logo" width="500">
 <br/>
 
-<h2> Play away! </h2>
+<h3> Play away! </h3>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
