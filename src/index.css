@@ -136,20 +136,10 @@ h1 {
   padding-top: 0px
 }
 
-.modal .solution {
-  color: #ff004c;
-  font-weight: bold;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0px;
-  margin-top: 30px;
-}
-
 .definition {
   color: #5C8BD6;
   margin-top: 3px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .modal>div>.restart {
