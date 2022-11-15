@@ -73,7 +73,7 @@ const useWordle = () => {
             return prevTurn + 1
         })
 
-        if (turn > 5 && !isCorrect) {
+        if (turn >= 5 && !isCorrect) {
             setEndOfGame(true);
         }
 
