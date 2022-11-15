@@ -12,20 +12,22 @@ const useWordle = () => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [usedKeys, setUsedKeys] = useState({});
     const [isWrongGuess, setIsWrongGuess] = useState(false);
+    const [endOfGame, setEndOfGame] = useState(false);
     const { data: words } = useGetWordsQuery();
     const solution = useSelector(selectSolution);
     const dispatch = useDispatch();
 
     //handle restart of game
     const handleNewGame = () => {
-        setTurn(0);
         setIsCorrect(false);
+        setTurn(0);
         setCurrentGuess('');
         setGuesses([...Array(6)]);
         setHistory([]);
         setIsWrongGuess(false);
         setUsedKeys({});
         setShowGameOver(false);
+        setEndOfGame(false);
 
         dispatch(getNewSolution(words));
     }
@@ -54,6 +56,7 @@ const useWordle = () => {
     const addNewGuess = (formattedGuess) => {
         if (currentGuess === solution) {
             setIsCorrect(true);
+            setEndOfGame(true);
         }
 
         setGuesses((prevGuesses) => {
@@ -69,6 +72,10 @@ const useWordle = () => {
         setTurn((prevTurn) => {
             return prevTurn + 1
         })
+
+        if (turn > 5 && !isCorrect) {
+            setEndOfGame(true);
+        }
 
         //add used keys
         setUsedKeys((prevUsedKeys) => {
@@ -144,7 +151,10 @@ const useWordle = () => {
         isWrongGuess,
         handleNewGame,
         showGameOver,
-        setShowGameOver
+        setShowGameOver,
+        setIsCorrect,
+        setTurn,
+        endOfGame
     }
 }
 

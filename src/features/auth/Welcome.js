@@ -48,7 +48,7 @@ const paperStyle = {
     top: '42%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    height: '55vh',
+    height: 400,
     width: 320,
     backgroundColor: '#2E2E2E',
     border: '2px solid #CCC',

@@ -16,7 +16,8 @@ import { selectCurrentID } from '../features/auth/authSlice';
 
 export default function Wordle({ authModalOpen, isLoggedIn }) {
     const { currentGuess, handleKeyup, guesses, isCorrect, turn,
-        usedKeys, isWrongGuess, handleNewGame, showGameOver, setShowGameOver }
+        usedKeys, isWrongGuess, handleNewGame, showGameOver,
+        setShowGameOver, setIsCorrect, setTurn, endOfGame }
         = useWordle();
     const id = useSelector(selectCurrentID);
     const { data: history } = useGetHistoryQuery(id);
@@ -35,12 +36,10 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
     }, [authModalOpen, currentGuess]);
 
     useEffect(() => {
-        if (isCorrect) {
-            setTimeout(() => setShowGameOver(true), 2200);
-        } else if (turn > 5) {
+        if (endOfGame) {
             setTimeout(() => setShowGameOver(true), 2200);
         }
-    }, [isCorrect, turn])
+    }, [endOfGame])
 
     //when the game is over, update history and stat of user
     useEffect(() => {
@@ -74,7 +73,7 @@ export default function Wordle({ authModalOpen, isLoggedIn }) {
             }
         }
 
-        if (showGameOver) {
+        if (showGameOver && isLoggedIn) {
             if (isCorrect) {
                 updateStatAsync(turn, true);
             } else {

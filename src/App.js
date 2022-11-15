@@ -21,7 +21,8 @@ function App() {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>
+    content = <p>Free server goes to sleep during inactivity...
+      <br />Might take 10 seconds to load...</p>
   } else if (isSuccess) {
     content = <Wordle authModalOpen={authModalOpen} isLoggedIn={isLoggedIn} />
   } else if (isError) {

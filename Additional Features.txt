@@ -1,6 +1,4 @@
 *TODO*
--Display definition of the solution after game finishes using WordAPI
-    -multiple definition?
 -Make keyboard accessible for mobile browser
 
 *DONE*
@@ -36,3 +34,4 @@
 -Shake boxes if incorrect guess format is given
 -Convert project to use Redux central storage
 -Display definition of the solution after game finishes using WordAPI
+    -multiple definitions
