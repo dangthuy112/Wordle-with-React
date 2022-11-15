@@ -63,6 +63,7 @@ Wordle game with a user database to track stats of individual user.
 * Built the website using ReactJS with Material UI. 
 * Incorporated Redux Toolkit/RTK Query where needed
 * Backend was built using NodeJS with ExpressJS to connect to MongoDB.
+<br/>
 <a href="https://github.com/dangthuy112/simple_wordle_api"><strong>Link to Backend Repository</strong></a>
 
 
